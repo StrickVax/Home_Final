@@ -1,5 +1,6 @@
 package Home_Final;
 
+// File which return's the profession's hourly rates in USD
 interface professionals {
     int getCost();
 }
