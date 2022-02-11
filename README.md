@@ -3,6 +3,7 @@
 This program aims to streamline the reservation of home improvement. It asks for the
 user’s specifications, and after guiding them through the steps, will output their selections onto a
 .txt file.
+
 It works by asking the user what professional they want to hire. After having a selection,
 they will then be able to choose any date within a year. Afterwards, they will be asked for how
 many hours they intend to keep the professional around. Once the user has the hours down, they
