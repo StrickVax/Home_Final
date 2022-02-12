@@ -4,59 +4,46 @@ import java.time.Month;
 import java.util.Scanner;
 
 public class menu {
-    protected String a;
-    protected String b;
-    protected String c;
-    protected String d;
-    protected String f;
 
-    // Outputs the user's options
-    protected void displayOptions() {
+    protected void displayMenu() {
+
+        // Sets the flag to zero
+        int flag;
+        // declares the variables needed to print the summary file.
+        int profession, day, hours, rooms;
+
+        Scanner in = new Scanner(System.in);
+
+        do {
+            flag = 0;
+            System.out.println("\n\nWelcome to the Home Improvement Menu");
+            System.out.println("What would you like to do?\n");
+
+            // Asks the user what they wish to do, and lists their options
+            displayProfessions();
+
+            flag = in.nextInt();
+
+            // Looks to see if the user inputted a valid option.
+            if (0 < flag && flag < 6) {
+                profession = flag;
+                displayMonths();
+            } else if (flag != 0) {
+                System.out.println("ERROR -- \'" + flag + "\' is invalid");
+            }
+        } while (flag != 0);
+        in.close();
+    }
+
+    // Outputs the list of professions
+    protected void displayProfessions() {
         System.out.println();
-        System.out.println("Quit -- (0)");
-
-        System.out.println("Painters -- (1)");
-        System.out.println("Remodelers -- (2)");
-        System.out.println("Constructors -- (3)");
-        System.out.println("Designers -- (4)");
-        System.out.println("Electricians -- (5)");
-    }
-
-    protected void confirmation() {
-        int flag = 0;
-        System.out.println("Are these your choices");
-        System.out.println("[Display choices]");
-        System.out.println("(1) -- Y\n (0) -- N");
-        Scanner in = new Scanner(System.in);
-
-        flag = in.nextInt();
-        if (flag == 1) {
-            // Call fileWriter
-        }
-        in.close();
-    }
-
-    protected void displayRooms() {
-        int rooms;
-        System.out.println("Enter number of rooms you wish to work on");
-        Scanner in = new Scanner(System.in);
-
-        rooms = in.nextInt();
-        if (rooms > 0) {
-            int numberOfRooms[] = new int[rooms];
-            confirmation();
-        }
-        in.close();
-    }
-
-    protected void displayDate() {
-        int day;
-        System.out.println("Enter day of the month");
-        Scanner in = new Scanner(System.in);
-
-        day = in.nextInt();
-        if (day < 32 && day > 0)
-            displayRooms();
+        System.out.println("Quit\t\t(0)");
+        System.out.println("Painters\t(1)");
+        System.out.println("Remodelers\t(2)");
+        System.out.println("Constructors\t(3)");
+        System.out.println("Designers\t(4)");
+        System.out.println("Electricians\t(5)");
     }
 
     protected void displayMonths() {
@@ -66,8 +53,9 @@ public class menu {
         Scanner in = new Scanner(System.in);
         // scan's the user's selection with key
         // rather inefficient way to assign months, but it does showcase a switch case
-        System.out.println("\nSelect a month");
+        System.out.println("\nType the number of the month (1-12):");
         month = in.nextInt();
+
         switch (month) {
             case 1:
                 monthName = ("Jan");
@@ -106,36 +94,52 @@ public class menu {
                 monthName = ("Dec");
                 break;
             default:
-                monthName = ("Error: Invalid month");
+                monthName = ("Error -- Invalid month");
                 break;
         }
+
         System.out.println(monthName);
-        displayDate();
+        
+        // Only lets user confinue if month is valid
+        if (month > 0 && month < 12) {
+            displayDay();
+        }
     }
 
-    protected void displayMenu() {
-        // Sets the flag to zero
-        int flag;
-
-        // declares the variables needed to print the summary file.
-
-        int profession, day, hours, rooms;
+    protected void displayRooms() {
+        int rooms;
+        System.out.println("Enter number of rooms you wish to work on");
         Scanner in = new Scanner(System.in);
 
-        do {
-            flag = 0;
-            System.out.println("\nnWelcome to the Home Improvement Menu");
-            System.out.println("What would you like to do?\n");
+        rooms = in.nextInt();
+        if (rooms > 0) {
+            int numberOfRooms[] = new int[rooms];
+            confirmation();
+        }
+        in.close();
+    }
 
-            // Asks the user what they wish to do, and lists their options
-            displayOptions();
+    protected void displayDay() {
+        int day;
+        System.out.println("Enter day of the month");
+        Scanner in = new Scanner(System.in);
 
-            flag = in.nextInt();
-            if (0 < flag && flag < 6) {
-                profession = flag;
-                displayMonths();
-            }
-        } while (flag != 0);
+        day = in.nextInt();
+        if (day < 32 && day > 0)
+            displayRooms();
+    }
+
+    protected void confirmation() {
+        int flag = 0;
+        System.out.println("Are these your choices");
+        System.out.println("[Display choices]");
+        System.out.println("(1) -- Y\n (0) -- N");
+        Scanner in = new Scanner(System.in);
+
+        flag = in.nextInt();
+        if (flag == 1) {
+            // Call fileWriter
+        }
         in.close();
     }
 }
